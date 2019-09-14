@@ -94,4 +94,4 @@ app.delete('/delete/:id', async (req, res) => {
   }
 });
 
-app.listen(443 , () => console.log('Servidor rodando na porta 443'));
+app.listen(process.env.PORT || 3000 , () => console.log('Servidor rodando na porta 3000'));
