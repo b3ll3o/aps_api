@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 
-mongoose.connect('mongodb://192.168.99.100:27017/aps', {
+mongoose.connect('mongodb://b3ll3o:aps2019@ds011268.mlab.com:11268/aps_segundo_semestre', {
   useNewUrlParser: true ,
   useFindAndModify: false,
   useCreateIndex: true,
@@ -37,7 +37,7 @@ const IncendioSchema = new mongoose.Schema({
 
 const Incendio = mongoose.model('Incendio', IncendioSchema);
 
-app.use('/create', async (req, res) => {
+app.get('/create', async (req, res) => {
   try{
     const { latitude, longitude } = req.body;
     const incendio = await Incendio.create({ latitude, longitude });
@@ -48,7 +48,7 @@ app.use('/create', async (req, res) => {
   }
 });
 
-app.use('/read', async (req, res) => {
+app.get('/read', async (req, res) => {
   try{
     const incendios = await Incendio.find();
     return res.send({ incendios });
@@ -59,7 +59,7 @@ app.use('/read', async (req, res) => {
   }
 });
 
-app.use('/readId/:id', async (req, res) => {
+app.get('/readId/:id', async (req, res) => {
   try{
     const incendio = await Incendio.findById(req.params.id);
     return res.send({ incendio });
@@ -70,13 +70,9 @@ app.use('/readId/:id', async (req, res) => {
   }
 });
 
-app.use('/update/:id', async (req, res) => {
+app.put('/update/:id', async (req, res) => {
   try{
     const { latitude, longitude } = req.body;
-    if(!latitude || !longitude){
-      console.log(latitude, longitude);
-      return res.status(500).send({ error: 'null point'});
-    }
     const incendio = await Incendio
       .findByIdAndUpdate(req.params.id, { latitude, longitude }, { new: true });
     return res.send({ incendio });
@@ -87,7 +83,7 @@ app.use('/update/:id', async (req, res) => {
   }
 });
 
-app.use('/delete/:id', async (req, res) => {
+app.delete('/delete/:id', async (req, res) => {
   try{
     await Incendio.findByIdAndRemove(req.params.id);
     return res.send();
