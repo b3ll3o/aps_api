@@ -73,6 +73,10 @@ app.use('/readId/:id', async (req, res) => {
 app.use('/update/:id', async (req, res) => {
   try{
     const { latitude, longitude } = req.body;
+    if(!latitude || !longitude){
+      console.log(latitude, longitude);
+      return res.status(500).send({ error: 'null point'});
+    }
     const incendio = await Incendio
       .findByIdAndUpdate(req.params.id, { latitude, longitude }, { new: true });
     return res.send({ incendio });
