@@ -41,7 +41,7 @@ app.post('/create', async (req, res) => {
   try{
     const { latitude, longitude } = req.body;
     const incendio = await Incendio.create({ latitude, longitude });
-    return res.send({ incendio });
+    return res.send(incendio);
   }catch(err){
     console.log(err);
     res.status(500).send({ error: 'Erro em criar novo foco de incendio'});
@@ -62,7 +62,7 @@ app.get('/read', async (req, res) => {
 app.get('/readId/:id', async (req, res) => {
   try{
     const incendio = await Incendio.findById(req.params.id);
-    return res.send({ incendio });
+    return res.send(incendio);
   }catch(err){
     console.log(err);
     return res.status(500)
@@ -75,7 +75,7 @@ app.put('/update/:id', async (req, res) => {
     const { latitude, longitude } = req.body;
     const incendio = await Incendio
       .findByIdAndUpdate(req.params.id, { latitude, longitude }, { new: true });
-    return res.send({ incendio });
+    return res.send(incendio);
   }catch(err){
     console.log(err);
     return res.status(500)
