@@ -51,7 +51,7 @@ app.post('/create', async (req, res) => {
 app.get('/read', async (req, res) => {
   try{
     const incendios = await Incendio.find();
-    return res.send({ incendios });
+    return res.send(incendios);
   }catch(err){
     console.log(err);
     return res.status(500)
