@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const morgan = require('morgan');
 
 const app = express();
 
@@ -9,6 +10,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
+app.use(morgan('dev'));
 
 mongoose.connect('mongodb://b3ll3o:aps2019@ds011268.mlab.com:11268/aps_segundo_semestre', {
   useNewUrlParser: true ,
