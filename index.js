@@ -41,6 +41,7 @@ const Incendio = mongoose.model('Incendio', IncendioSchema);
 
 app.post('/create', async (req, res) => {
   try{
+    console.log(req.body);
     const { latitude, longitude } = req.body;
     const incendio = await Incendio.create({ latitude, longitude });
     return res.send(incendio);
